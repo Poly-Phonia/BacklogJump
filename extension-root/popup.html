@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="ja">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Backlog Jump</title>
+        <style>
+            body div{
+                margin-bottom: 5px;
+            }
+        </style>
+    </head>
+    <body id="mainBody" style="width:300px;">
+        <header>
+            <h1>Backlog Jump</h1>
+            <nav></nav>
+        </header>
+        <article>        
+            <div>
+                <label for="inpLinkUrl" style="display:block;">リンク先設定</label>
+                <input id="inpLinkUrl" style="height:20px;" type="text" />
+                <span>/view/xxxx-000001</span>
+            </div>
+            <div>
+                <button id="btnSave" type="button">保存</button>
+            </div>
+            <div id="divResult" style="display:none;">
+                <span id="spnResult"></span>
+            </div>
+        </article>
+        <footer>
+            <p>0.1.0</p>
+        </footer>
+        <script src="popup.js"></script>
+    </body>
+</html>

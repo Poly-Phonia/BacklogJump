@@ -1,0 +1,12 @@
+{
+    "manifest_version": 3,
+    "name": "Backlog Jump",
+    "version": "0.1.0",
+    "action": {
+        "default_title": "setting",
+        "default_popup": "popup.html"
+    },
+    "permissions":[
+        "storage"
+    ]
+}
