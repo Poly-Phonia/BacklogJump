@@ -11,5 +11,12 @@ document.getElementById("btnSave").addEventListener("click", () =>{
     }).then(() => {
         document.getElementById("spnResult").textContent = "保存しました。";
         document.getElementById("divResult").style.display = "block";
+
+        chrome.runtime.sendMessage(null,{
+            type: "saveSettings",
+            saved: true
+        }).then((response) => {
+            console.log(response);
+        });
     });
 });
