@@ -1,4 +1,6 @@
-const issuePtn = /^[a-zA-Z]+-\d+$/
+//プロジェクトキーはアルファベット大文字と数値とアンダーバーが有効
+const issuePtn = /^[_A-Z0-9]+-\d+$/
+
 const issueMenuJumpKey = "issue-jump-menu";
 let baseUrl = "";
 let issueIdInContext = "";
