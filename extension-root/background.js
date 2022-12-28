@@ -51,16 +51,17 @@ chrome.runtime.onMessage.addListener(
         }
         else if(message.type == "onselectionchange" || message.type == "oncontextmenu"){
             //選択文字列の変更
+            var _selectedText = message.selectedText.trim();
 
             //メニューの状態変更
             var option = {
-                visible: baseUrl != "" && message.selectedText.match(issuePtn) != null
+                visible: baseUrl != "" && _selectedText.match(issuePtn) != null
             };
             chrome.contextMenus.update(
                 issueMenuJumpKey,
                 option,
                 function(){
-                    issueIdInContext = message.selectedText;
+                    issueIdInContext = _selectedText;
                 }
             );
             
