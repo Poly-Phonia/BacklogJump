@@ -20,3 +20,10 @@ document.getElementById("btnSave").addEventListener("click", () =>{
         });
     });
 });
+
+//マニフェストからバージョンを取得して表示
+var manifest = "manifest.json";
+fetch(manifest).then(response => response.json())
+               .then(json => {
+                document.getElementById("version-label").innerText = json.version;
+               });

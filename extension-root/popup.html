@@ -6,14 +6,20 @@
         <title>Backlog Jump</title>
         <style>
             body div{
-                margin-bottom: 5px;
+                margin-bottom: 10px;
+            }
+            div.title * {
+                display: inline;
+                vertical-align: middle;
             }
         </style>
     </head>
     <body id="mainBody" style="width:300px;">
         <header>
-            <h1>Backlog Jump</h1>
-            <nav></nav>
+            <div class="title">
+                <img src="assets/icon/icon48.png" />
+                <h1 >Backlog Jump</h1>
+            </div>
         </header>
         <article>        
             <div>
@@ -29,7 +35,7 @@
             </div>
         </article>
         <footer>
-            <p>0.1.0</p>
+            <p>ver.<span id="version-label">0.1.0</span></p>
         </footer>
         <script src="popup.js"></script>
     </body>
