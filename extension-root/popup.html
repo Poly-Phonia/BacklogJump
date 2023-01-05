@@ -5,38 +5,53 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Backlog Jump</title>
         <style>
+            body{
+                width:300px;
+                margin:0;
+                background-color: rgb(255, 255, 255);
+            }
             body div{
                 margin-bottom: 10px;
+            }
+            header{
+                background-color:rgb(210, 255, 239);
+                box-shadow: 0 5px 5px 0 rgba(95, 114, 107, 0.5);
             }
             div.title * {
                 display: inline;
                 vertical-align: middle;
+                margin: 5px;
+            }
+            div.contents{
+                margin: 8px;
             }
         </style>
     </head>
-    <body id="mainBody" style="width:300px;">
+    <body id="mainBody">
         <header>
             <div class="title">
                 <img src="assets/icon/icon48.png" />
                 <h1 >Backlog Jump</h1>
             </div>
         </header>
-        <article>        
-            <div>
-                <label for="inpLinkUrl" style="display:block;">リンク先設定</label>
-                <input id="inpLinkUrl" style="height:20px;" type="text" />
-                <span>/view/xxxx-000001</span>
-            </div>
-            <div>
-                <button id="btnSave" type="button">保存</button>
-            </div>
-            <div id="divResult" style="display:none;">
-                <span id="spnResult"></span>
-            </div>
-        </article>
-        <footer>
-            <p>ver.<span id="version-label">0.1.0</span></p>
-        </footer>
+        <div class="contents">
+            <article>        
+                <div>
+                    <label for="inpLinkUrl" style="display:block;">リンク先設定</label>
+                    <input id="inpLinkUrl" style="height:20px;" type="text" />
+                    <span>/view/xxxx-000001</span>
+                </div>
+                <div>
+                    <button id="btnSave" type="button">保存</button>
+                </div>
+                <div id="divResult" style="display:none;">
+                    <span id="spnResult"></span>
+                </div>
+            </article>
+            <footer>
+                <p>ver.<span id="version-label">0.1.0</span></p>
+            </footer>
+        </div>
         <script src="popup.js"></script>
     </body>
 </html>
