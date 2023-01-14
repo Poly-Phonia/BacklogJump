@@ -1,84 +1,24 @@
-//プロジェクトキーはアルファベット大文字と数値とアンダーバーが有効
-const issuePtn = /^[_A-Z0-9]+-\d+$/
+import { BacklogJumpMenu } from "./js/jump-menu.js";
+import { SettingManager } from "./js/setting-manager.js";
 
-const issueMenuJumpKey = "issue-jump-menu";
-let baseUrl = "";
-let issueIdInContext = "";
+/* インストール時のイベント */
+chrome.runtime.onInstalled.addListener(async (details) => {
+    //コンテキストメニューを全て消去
+    chrome.contextMenus.removeAll();
 
-//初期設定ここから
-loadBaseUrl();
-
-//初期設定ここまで
-
-chrome.runtime.onInstalled.addListener(() => {
-    chrome.contextMenus.create({
-      "id": issueMenuJumpKey,
-      "title": "Backlog 課題へ移動",
-      "contexts": ["selection"]
-    });
+    //保存済みベースURLを取得する。
+    let settingManager = new SettingManager();
+    let baseUrl = await settingManager.getLinkUrl();
+    if(baseUrl != null && baseUrl != ""){
+        //URLが保存されていたらメニューを作成する
+        BacklogJumpMenu.createMenu();
+    }
 });
 
-chrome.contextMenus.onClicked.addListener((info, tab) => {
-    if(info.menuItemId == issueMenuJumpKey){
-        //課題へ移動
-        var url = baseUrl + "/view/" + issueIdInContext;
-        //タブ作成時のオプション作成
-        var tabOption = {
-            active: true,
-            openerTabId: tab.id,
-            url: url
-        };
-        chrome.tabs.create(tabOption);
+/* コンテキストメニューのイベント */
+chrome.contextMenus.onClicked.addListener((info) => {
+    if(info.menuItemId == BacklogJumpMenu.MenuKey){
+        /* 選択中テキストをメニュークリック時の処理に渡す */
+        BacklogJumpMenu.jumpToBacklog(info.selectionText);
     }
-    console.log(info);
-    console.log(tab);
 });
-
-chrome.runtime.onMessage.addListener(
-    function(message, sender, sendResponse){
-        //typeによって分岐
-        if(message.type == undefined) {
-            return;
-        }
-
-        if(message.type == "saveSettings"){
-            //設定値が保存れた
-
-            //再読込
-            loadBaseUrl().then(() => {
-                return;
-            });
-        }
-        else if(message.type == "onselectionchange" || message.type == "oncontextmenu"){
-            //選択文字列の変更
-            var _selectedText = message.selectedText.trim();
-
-            //メニューの状態変更
-            var option = {
-                visible: baseUrl != "" && _selectedText.match(issuePtn) != null
-            };
-            chrome.contextMenus.update(
-                issueMenuJumpKey,
-                option,
-                function(){
-                    issueIdInContext = _selectedText;
-                }
-            );
-            
-        }
-
-    }
-);
-
-
-//保存済みURLを取得する
-async function loadBaseUrl(){
-    await chrome.storage.local.get(["linkUrl"]).then((data) => {
-        if(data == null || data.linkUrl == null) {
-            baseUrl = "";
-        }
-        else {
-            baseUrl = data.linkUrl;
-        };
-    });
-}
