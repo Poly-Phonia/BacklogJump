@@ -1,7 +1,7 @@
 {
     "manifest_version": 3,
     "name": "Backlog Jump",
-    "version": "0.8.0",
+    "version": "0.9.0",
     "action": {
         "default_title": "setting",
         "default_popup": "popup.html"
@@ -20,10 +20,21 @@
     "content_scripts":[
         {
             "matches": ["<all_urls>"],
-            "js":["selection-notice.js"]
+            "js":["loader.js"]
+        }
+    ],
+    "web_accessible_resources": [
+        {
+            "resources": [
+                "contents.js",
+                "js/jump-menu.js",
+                "js/setting-manager.js"
+            ],
+            "matches": ["<all_urls>"]
         }
     ],
     "background": {
-        "service_worker": "background.js"
+        "service_worker": "background.js",
+        "type": "module"
     }
 }
